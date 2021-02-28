@@ -27,5 +27,7 @@ Run the `modimporter.py` script to install the mods, then load into your game. W
 # Configuration
 
 The RTA Timer can be shown or hidden, and multi-run support can be enabled or disabled. To change these options, you have two options:
-    1) Install [ModConfigMenu made by ParadigmSort](https://github.com/parasHadesMods/ModConfigMenu)
-    2) Open the `.../Hades/Content/Mods/RtaTimer` folder then open `RtaTimer.lua` in Notepad. There will be a block at the top with `local config = {` followed by the options that can be changed.
+
+  1) Install [ModConfigMenu made by ParadigmSort](https://github.com/parasHadesMods/ModConfigMenu)
+    
+  2) Open the `.../Hades/Content/Mods/RtaTimer` folder then open `RtaTimer.lua` in Notepad. There will be a block at the top with `local config = {` followed by the options that can be changed.
