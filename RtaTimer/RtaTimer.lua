@@ -11,6 +11,7 @@ local config = {
     ModName = "RtaTimer",
     DisplayTimer = true,
     MultiWeapon = false,
+    LowPerformance = false,
 }
 
 if ModConfigMenu then
@@ -57,7 +58,19 @@ function RtaTimer.UpdateRtaTimer()
     local current_time = "00:00.00"
     -- If the timer has been reset, it should stay at 00:00.00 until it "starts" again
     if not RtaTimer.TimerWasReset then
-        current_time = RtaTimer.FormatElapsedTime(RtaTimer.StartTime, GetTime({ }))
+        if RtaTimer.LowPerformance then
+            current_time = RtaTimer.FormatElapsedTime(RtaTimer.StartTime, _worldTime - RtaTimer.PreviousWorldTime)
+            RtaTimer.PreviousWorldTime = _worldTime
+            RtaTimer.Cycle = RtaTimer.Cycle + 1
+
+            if RtaTimer.Cycle == 30 then
+                current_time = RtaTimer.FormatElapsedTime(RtaTimer.StartTime, GetTime({ }))
+                RtaTimer.Cycle = 0
+            end
+        else
+                current_time = RtaTimer.FormatElapsedTime(RtaTimer.StartTime, GetTime({ }))
+        end
+
     end
 
     PrintUtil.createOverlayLine(
@@ -76,6 +89,8 @@ end
 
 function RtaTimer.StartRtaTimer()
     RtaTimer.Running = true
+    RtaTimer.Cycle = 0
+    RtaTimer.PreviousWorldTime = _worldTime
     while RtaTimer.Running do
         RtaTimer.UpdateRtaTimer()
         -- Update once per frame
